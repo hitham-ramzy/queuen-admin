@@ -1,0 +1,135 @@
+// CONSTANTS
+MIN_RATING=1
+MAX_RATING=5
+
+
+// ENTITIES
+entity SuperAdmin {}
+
+entity Admin {}
+
+entity Agent {
+	defaultBranchServiceId Long
+}
+
+entity Customer {}
+
+entity Company {
+	name String required
+	address String required
+	logoUrl String
+	active Boolean required
+	createdAt ZonedDateTime required
+	createdBy String required
+	lastDeactivationBySuperAdmin Boolean
+}
+
+entity Branch {
+	startWorkingHours Instant
+	endWorkingHours Instant
+	workingDays Day //array not available in JDL, update me in code please
+	acceptedParallelReservationNumber Integer required
+	createdAt ZonedDateTime required
+	createdBy String required
+	active Boolean required
+	lastDeactivationBySuperAdmin Boolean
+}
+
+entity BranchService {
+	name String required
+	startingTime Instant
+	endingTime Instant
+	averageServingMinutes Double required
+	createdAt ZonedDateTime required
+	createdBy String required
+	active Boolean required
+	lastDeactivationBySuperAdmin Boolean
+}
+
+entity Queue {
+	status QueueStatus required
+	day ZonedDateTime required
+	currentServingNumber Integer required
+	lastReservedNumber Integer required
+	lastStatusBySuperAdmin Boolean
+}
+
+entity Window {
+	name String required
+    description String
+}
+
+entity Session {
+	rateValue Integer min(MIN_RATING) max(MAX_RATING)
+	reviewDescription TextBlob
+	startDateTime ZonedDateTime required
+	endDateTime ZonedDateTime required
+	servingMinutes Double
+	windowName String required
+    status SessionStatus required
+}
+
+entity AuditLog {}
+
+enum QueueStatus {
+	ACTIVE,
+    INACTIVE,
+    ENDED
+}
+
+enum SessionStatus {
+	STARTED,
+    ENDED,
+    MISSED
+}
+
+enum LogType {
+	BRANCH_CREATE,
+    BRANCH_UPDATED,
+    BRANCH_DELETED,
+    SERVICE_CREATE,
+	SERVICE_UPDATED,
+	SERVICE_DELETED
+}
+
+enum Day {
+	SATURDAY,
+    SUNDAY,
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY
+}
+
+relationship OneToOne {
+	Admin{company} to Company
+    Window{currentAgent} to Agent
+}
+
+relationship ManyToOne {
+	Queue{service required} to BranchService
+    Agent{branch required} to Branch
+    Session{agent required} to Agent
+    Session{customer} to Customer
+}
+
+relationship OneToMany {
+	Company{branches} to Branch{company required}
+    Branch{services} to BranchService{branch required}
+    BranchService{windows} to Window{service required}
+}
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfer Objects (DTO)
+//dto * with mapstruct
+
+// Set service options to all except few
+service * with serviceClass
+
+//skipClient for *
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
