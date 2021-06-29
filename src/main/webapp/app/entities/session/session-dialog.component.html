@@ -1,0 +1,133 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySessionLabel" jhiTranslate="queueNApp.session.home.createOrEditLabel">Create or edit a Session</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!session.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="session.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.rateValue" for="field_rateValue">Rate Value</label>
+            <input type="number" class="form-control" name="rateValue" id="field_rateValue"
+                [(ngModel)]="session.rateValue" min="1" max="5" />
+            <div [hidden]="!(editForm.controls.rateValue?.dirty && editForm.controls.rateValue?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.rateValue?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 1 }">
+                    This field should be at least 1.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.rateValue?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 5 }">
+                    This field cannot be more than 5.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.rateValue?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.reviewDescription" for="field_reviewDescription">Review Description</label>
+            <textarea class="form-control" name="reviewDescription" id="field_reviewDescription"
+                [(ngModel)]="session.reviewDescription"  ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.startDateTime" for="field_startDateTime">Start Date Time</label>
+            <div class="d-flex">
+                <input id="field_startDateTime" type="datetime-local" class="form-control" name="startDateTime" [(ngModel)]="session.startDateTime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.startDateTime?.dirty && editForm.controls.startDateTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.startDateTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.startDateTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.endDateTime" for="field_endDateTime">End Date Time</label>
+            <div class="d-flex">
+                <input id="field_endDateTime" type="datetime-local" class="form-control" name="endDateTime" [(ngModel)]="session.endDateTime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.endDateTime?.dirty && editForm.controls.endDateTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.endDateTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.endDateTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.servingMinutes" for="field_servingMinutes">Serving Minutes</label>
+            <input type="number" class="form-control" name="servingMinutes" id="field_servingMinutes"
+                [(ngModel)]="session.servingMinutes"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.windowName" for="field_windowName">Window Name</label>
+            <input type="text" class="form-control" name="windowName" id="field_windowName"
+                [(ngModel)]="session.windowName" required />
+            <div [hidden]="!(editForm.controls.windowName?.dirty && editForm.controls.windowName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.windowName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="session.status" id="field_status"  required>
+                <option value="STARTED">{{'queueNApp.SessionStatus.STARTED' | translate}}</option>
+                <option value="ENDED">{{'queueNApp.SessionStatus.ENDED' | translate}}</option>
+                <option value="MISSED">{{'queueNApp.SessionStatus.MISSED' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.agent" for="field_agent">Agent</label>
+            <select class="form-control" id="field_agent" name="agent" [(ngModel)]="session.agent"  required>
+                <option *ngIf="!editForm.value.agent" [ngValue]="null" selected></option>
+                <option [ngValue]="agentOption.id === session.agent?.id ? session.agent : agentOption" *ngFor="let agentOption of agents; trackBy: trackAgentById">{{agentOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.agent?.dirty && editForm.controls.agent?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.agent?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.session.customer" for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="session.customer" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="customerOption.id === session.customer?.id ? session.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

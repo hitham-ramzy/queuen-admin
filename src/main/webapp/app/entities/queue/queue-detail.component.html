@@ -1,0 +1,47 @@
+
+<div *ngIf="queue">
+    <h2><span jhiTranslate="queueNApp.queue.detail.title">Queue</span> {{queue.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="queueNApp.queue.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'queueNApp.QueueStatus.' + queue.status}}">{{queue.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.queue.day">Day</span></dt>
+        <dd>
+            <span>{{queue.day | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.queue.currentServingNumber">Current Serving Number</span></dt>
+        <dd>
+            <span>{{queue.currentServingNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.queue.lastReservedNumber">Last Reserved Number</span></dt>
+        <dd>
+            <span>{{queue.lastReservedNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.queue.lastStatusBySuperAdmin">Last Status By Super Admin</span></dt>
+        <dd>
+            <span>{{queue.lastStatusBySuperAdmin}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.queue.service">Service</span></dt>
+        <dd>
+            <div *ngIf="queue.service">
+                <a [routerLink]="['/branch-service', queue.service?.id]">{{queue.service?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'queue/'+ queue.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

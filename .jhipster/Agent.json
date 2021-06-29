@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "branch",
+            "otherEntityName": "branch",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "defaultBranchServiceId",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20210628171734",
+    "entityTableName": "agent",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

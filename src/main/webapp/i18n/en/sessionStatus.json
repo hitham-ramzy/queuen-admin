@@ -1,0 +1,10 @@
+{
+    "queueNApp": {
+        "SessionStatus" : {
+            "null": "",
+            "STARTED": "STARTED",
+            "ENDED": "ENDED",
+            "MISSED": "MISSED"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "admin"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20210628171733",
+    "entityTableName": "admin",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

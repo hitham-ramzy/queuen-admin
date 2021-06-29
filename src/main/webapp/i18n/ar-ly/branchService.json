@@ -1,0 +1,30 @@
+{
+    "queueNApp": {
+        "branchService" : {
+            "home": {
+                "title": "Branch Services",
+                "createLabel": "Create a new Branch Service",
+                "createOrEditLabel": "Create or edit a Branch Service"
+            },
+            "created": "A new Branch Service is created with identifier {{ param }}",
+            "updated": "A Branch Service is updated with identifier {{ param }}",
+            "deleted": "A Branch Service is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Branch Service {{ id }}?"
+            },
+            "detail": {
+                "title": "Branch Service"
+            },
+            "name": "Name",
+            "startingTime": "Starting Time",
+            "endingTime": "Ending Time",
+            "averageServingMinutes": "Average Serving Minutes",
+            "createdAt": "Created At",
+            "createdBy": "Created By",
+            "active": "Active",
+            "lastDeactivationBySuperAdmin": "Last Deactivation By Super Admin",
+            "windows": "Windows",
+            "branch": "Branch"
+        }
+    }
+}

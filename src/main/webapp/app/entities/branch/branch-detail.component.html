@@ -1,0 +1,59 @@
+
+<div *ngIf="branch">
+    <h2><span jhiTranslate="queueNApp.branch.detail.title">Branch</span> {{branch.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="queueNApp.branch.startWorkingHours">Start Working Hours</span></dt>
+        <dd>
+            <span>{{branch.startWorkingHours | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.endWorkingHours">End Working Hours</span></dt>
+        <dd>
+            <span>{{branch.endWorkingHours | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.workingDays">Working Days</span></dt>
+        <dd>
+            <span jhiTranslate="{{'queueNApp.Day.' + branch.workingDays}}">{{branch.workingDays}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.acceptedParallelReservationNumber">Accepted Parallel Reservation Number</span></dt>
+        <dd>
+            <span>{{branch.acceptedParallelReservationNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{branch.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{branch.createdBy}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.active">Active</span></dt>
+        <dd>
+            <span>{{branch.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.lastDeactivationBySuperAdmin">Last Deactivation By Super Admin</span></dt>
+        <dd>
+            <span>{{branch.lastDeactivationBySuperAdmin}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.branch.company">Company</span></dt>
+        <dd>
+            <div *ngIf="branch.company">
+                <a [routerLink]="['/company', branch.company?.id]">{{branch.company?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'branch/'+ branch.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

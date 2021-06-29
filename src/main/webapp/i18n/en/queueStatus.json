@@ -1,0 +1,10 @@
+{
+    "queueNApp": {
+        "QueueStatus" : {
+            "null": "",
+            "ACTIVE": "ACTIVE",
+            "INACTIVE": "INACTIVE",
+            "ENDED": "ENDED"
+        }
+    }
+}

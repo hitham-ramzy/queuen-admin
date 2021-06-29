@@ -1,0 +1,70 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "services",
+            "otherEntityName": "branchService",
+            "otherEntityRelationshipName": "branch"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "startWorkingHours",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endWorkingHours",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "workingDays",
+            "fieldType": "Day",
+            "fieldValues": "SATURDAY,SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY"
+        },
+        {
+            "fieldName": "acceptedParallelReservationNumber",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastDeactivationBySuperAdmin",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20210628171737",
+    "entityTableName": "branch",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

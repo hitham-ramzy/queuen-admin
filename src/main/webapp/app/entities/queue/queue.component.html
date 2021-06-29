@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span jhiTranslate="queueNApp.queue.home.title">Queues</span>
+        <button class="btn btn-primary float-right jh-create-entity create-queue" [routerLink]="['/', { outlets: { popup: ['queue-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="queueNApp.queue.home.createLabel">
+            Create new Queue
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="queues">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="queueNApp.queue.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="day"><span jhiTranslate="queueNApp.queue.day">Day</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currentServingNumber"><span jhiTranslate="queueNApp.queue.currentServingNumber">Current Serving Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastReservedNumber"><span jhiTranslate="queueNApp.queue.lastReservedNumber">Last Reserved Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastStatusBySuperAdmin"><span jhiTranslate="queueNApp.queue.lastStatusBySuperAdmin">Last Status By Super Admin</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="service.id"><span jhiTranslate="queueNApp.queue.service">Service</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let queue of queues ;trackBy: trackId">
+                <td><a [routerLink]="['../queue', queue.id ]">{{queue.id}}</a></td>
+                <td jhiTranslate="{{'queueNApp.QueueStatus.' + queue.status}}">{{queue.status}}</td>
+                <td>{{queue.day | date:'medium'}}</td>
+                <td>{{queue.currentServingNumber}}</td>
+                <td>{{queue.lastReservedNumber}}</td>
+                <td>{{queue.lastStatusBySuperAdmin}}</td>
+                <td>
+                    <div *ngIf="queue.service">
+                        <a [routerLink]="['../branch-service', queue.service?.id ]" >{{queue.service?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../queue', queue.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'queue/'+ queue.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'queue/'+ queue.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="queues && queues.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

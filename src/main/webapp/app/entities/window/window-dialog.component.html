@@ -1,0 +1,61 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myWindowLabel" jhiTranslate="queueNApp.window.home.createOrEditLabel">Create or edit a Window</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!window.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="window.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.window.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="window.name" required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.window.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="window.description"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.window.currentAgent" for="field_currentAgent">Current Agent</label>
+            <select class="form-control" id="field_currentAgent" name="currentAgent" [(ngModel)]="window.currentAgent">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="agentOption.id === window.currentAgent?.id ? window.currentAgent : agentOption" *ngFor="let agentOption of currentagents; trackBy: trackAgentById">{{agentOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.window.service" for="field_service">Service</label>
+            <select class="form-control" id="field_service" name="service" [(ngModel)]="window.service"  required>
+                <option *ngIf="!editForm.value.service" [ngValue]="null" selected></option>
+                <option [ngValue]="branchServiceOption.id === window.service?.id ? window.service : branchServiceOption" *ngFor="let branchServiceOption of branchservices; trackBy: trackBranchServiceById">{{branchServiceOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.service?.dirty && editForm.controls.service?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.service?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

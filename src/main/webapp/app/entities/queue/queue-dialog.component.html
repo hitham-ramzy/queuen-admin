@@ -1,0 +1,104 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myQueueLabel" jhiTranslate="queueNApp.queue.home.createOrEditLabel">Create or edit a Queue</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!queue.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="queue.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="queue.status" id="field_status"  required>
+                <option value="ACTIVE">{{'queueNApp.QueueStatus.ACTIVE' | translate}}</option>
+                <option value="INACTIVE">{{'queueNApp.QueueStatus.INACTIVE' | translate}}</option>
+                <option value="ENDED">{{'queueNApp.QueueStatus.ENDED' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.day" for="field_day">Day</label>
+            <div class="d-flex">
+                <input id="field_day" type="datetime-local" class="form-control" name="day" [(ngModel)]="queue.day"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.day?.dirty && editForm.controls.day?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.day?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.day?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.currentServingNumber" for="field_currentServingNumber">Current Serving Number</label>
+            <input type="number" class="form-control" name="currentServingNumber" id="field_currentServingNumber"
+                [(ngModel)]="queue.currentServingNumber" required />
+            <div [hidden]="!(editForm.controls.currentServingNumber?.dirty && editForm.controls.currentServingNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.currentServingNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.currentServingNumber?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.lastReservedNumber" for="field_lastReservedNumber">Last Reserved Number</label>
+            <input type="number" class="form-control" name="lastReservedNumber" id="field_lastReservedNumber"
+                [(ngModel)]="queue.lastReservedNumber" required />
+            <div [hidden]="!(editForm.controls.lastReservedNumber?.dirty && editForm.controls.lastReservedNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastReservedNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastReservedNumber?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.lastStatusBySuperAdmin" for="field_lastStatusBySuperAdmin">Last Status By Super Admin</label>
+            <input type="checkbox" class="form-control" name="lastStatusBySuperAdmin" id="field_lastStatusBySuperAdmin"
+                [(ngModel)]="queue.lastStatusBySuperAdmin"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.queue.service" for="field_service">Service</label>
+            <select class="form-control" id="field_service" name="service" [(ngModel)]="queue.service"  required>
+                <option *ngIf="!editForm.value.service" [ngValue]="null" selected></option>
+                <option [ngValue]="branchServiceOption.id === queue.service?.id ? queue.service : branchServiceOption" *ngFor="let branchServiceOption of branchservices; trackBy: trackBranchServiceById">{{branchServiceOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.service?.dirty && editForm.controls.service?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.service?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

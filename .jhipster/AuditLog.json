@@ -1,0 +1,10 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [],
+    "changelogDate": "20210628171742",
+    "entityTableName": "audit_log",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

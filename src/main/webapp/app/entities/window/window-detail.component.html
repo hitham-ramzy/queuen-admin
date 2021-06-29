@@ -1,0 +1,41 @@
+
+<div *ngIf="window">
+    <h2><span jhiTranslate="queueNApp.window.detail.title">Window</span> {{window.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="queueNApp.window.name">Name</span></dt>
+        <dd>
+            <span>{{window.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.window.description">Description</span></dt>
+        <dd>
+            <span>{{window.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.window.currentAgent">Current Agent</span></dt>
+        <dd>
+            <div *ngIf="window.currentAgent">
+                <a [routerLink]="['/agent', window.currentAgent?.id]">{{window.currentAgent?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.window.service">Service</span></dt>
+        <dd>
+            <div *ngIf="window.service">
+                <a [routerLink]="['/branch-service', window.service?.id]">{{window.service?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'window/'+ window.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,122 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBranchServiceLabel" jhiTranslate="queueNApp.branchService.home.createOrEditLabel">Create or edit a Branch Service</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!branchService.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="branchService.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="branchService.name" required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.startingTime" for="field_startingTime">Starting Time</label>
+            <div class="d-flex">
+                <input id="field_startingTime" type="datetime-local" class="form-control" name="startingTime" [(ngModel)]="branchService.startingTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.endingTime" for="field_endingTime">Ending Time</label>
+            <div class="d-flex">
+                <input id="field_endingTime" type="datetime-local" class="form-control" name="endingTime" [(ngModel)]="branchService.endingTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.averageServingMinutes" for="field_averageServingMinutes">Average Serving Minutes</label>
+            <input type="number" class="form-control" name="averageServingMinutes" id="field_averageServingMinutes"
+                [(ngModel)]="branchService.averageServingMinutes" required />
+            <div [hidden]="!(editForm.controls.averageServingMinutes?.dirty && editForm.controls.averageServingMinutes?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.averageServingMinutes?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.averageServingMinutes?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.createdAt" for="field_createdAt">Created At</label>
+            <div class="d-flex">
+                <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" [(ngModel)]="branchService.createdAt"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.createdAt?.dirty && editForm.controls.createdAt?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdAt?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdAt?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                [(ngModel)]="branchService.createdBy" required />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdBy?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active"
+                [(ngModel)]="branchService.active"  />
+            <div [hidden]="!(editForm.controls.active?.dirty && editForm.controls.active?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.active?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.lastDeactivationBySuperAdmin" for="field_lastDeactivationBySuperAdmin">Last Deactivation By Super Admin</label>
+            <input type="checkbox" class="form-control" name="lastDeactivationBySuperAdmin" id="field_lastDeactivationBySuperAdmin"
+                [(ngModel)]="branchService.lastDeactivationBySuperAdmin"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="queueNApp.branchService.branch" for="field_branch">Branch</label>
+            <select class="form-control" id="field_branch" name="branch" [(ngModel)]="branchService.branch"  required>
+                <option *ngIf="!editForm.value.branch" [ngValue]="null" selected></option>
+                <option [ngValue]="branchOption.id === branchService.branch?.id ? branchService.branch : branchOption" *ngFor="let branchOption of branches; trackBy: trackBranchById">{{branchOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.branch?.dirty && editForm.controls.branch?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.branch?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

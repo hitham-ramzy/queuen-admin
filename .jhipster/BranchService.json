@@ -1,0 +1,72 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "windows",
+            "otherEntityName": "window",
+            "otherEntityRelationshipName": "service"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "branch",
+            "otherEntityName": "branch",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "startingTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endingTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "averageServingMinutes",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastDeactivationBySuperAdmin",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20210628171738",
+    "entityTableName": "branch_service",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

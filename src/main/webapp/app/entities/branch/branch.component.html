@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span jhiTranslate="queueNApp.branch.home.title">Branches</span>
+        <button class="btn btn-primary float-right jh-create-entity create-branch" [routerLink]="['/', { outlets: { popup: ['branch-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="queueNApp.branch.home.createLabel">
+            Create new Branch
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="branches">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startWorkingHours"><span jhiTranslate="queueNApp.branch.startWorkingHours">Start Working Hours</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endWorkingHours"><span jhiTranslate="queueNApp.branch.endWorkingHours">End Working Hours</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workingDays"><span jhiTranslate="queueNApp.branch.workingDays">Working Days</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="acceptedParallelReservationNumber"><span jhiTranslate="queueNApp.branch.acceptedParallelReservationNumber">Accepted Parallel Reservation Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdAt"><span jhiTranslate="queueNApp.branch.createdAt">Created At</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="queueNApp.branch.createdBy">Created By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="active"><span jhiTranslate="queueNApp.branch.active">Active</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastDeactivationBySuperAdmin"><span jhiTranslate="queueNApp.branch.lastDeactivationBySuperAdmin">Last Deactivation By Super Admin</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="company.id"><span jhiTranslate="queueNApp.branch.company">Company</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let branch of branches ;trackBy: trackId">
+                <td><a [routerLink]="['../branch', branch.id ]">{{branch.id}}</a></td>
+                <td>{{branch.startWorkingHours | date:'medium'}}</td>
+                <td>{{branch.endWorkingHours | date:'medium'}}</td>
+                <td jhiTranslate="{{'queueNApp.Day.' + branch.workingDays}}">{{branch.workingDays}}</td>
+                <td>{{branch.acceptedParallelReservationNumber}}</td>
+                <td>{{branch.createdAt | date:'medium'}}</td>
+                <td>{{branch.createdBy}}</td>
+                <td>{{branch.active}}</td>
+                <td>{{branch.lastDeactivationBySuperAdmin}}</td>
+                <td>
+                    <div *ngIf="branch.company">
+                        <a [routerLink]="['../company', branch.company?.id ]" >{{branch.company?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../branch', branch.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'branch/'+ branch.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'branch/'+ branch.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="branches && branches.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

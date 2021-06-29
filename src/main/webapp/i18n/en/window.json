@@ -1,0 +1,24 @@
+{
+    "queueNApp": {
+        "window" : {
+            "home": {
+                "title": "Windows",
+                "createLabel": "Create a new Window",
+                "createOrEditLabel": "Create or edit a Window"
+            },
+            "created": "A new Window is created with identifier {{ param }}",
+            "updated": "A Window is updated with identifier {{ param }}",
+            "deleted": "A Window is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Window {{ id }}?"
+            },
+            "detail": {
+                "title": "Window"
+            },
+            "name": "Name",
+            "description": "Description",
+            "currentAgent": "Current Agent",
+            "service": "Service"
+        }
+    }
+}

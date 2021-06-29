@@ -1,0 +1,61 @@
+
+<div *ngIf="session">
+    <h2><span jhiTranslate="queueNApp.session.detail.title">Session</span> {{session.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="queueNApp.session.rateValue">Rate Value</span></dt>
+        <dd>
+            <span>{{session.rateValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.reviewDescription">Review Description</span></dt>
+        <dd>
+            <span>{{session.reviewDescription}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.startDateTime">Start Date Time</span></dt>
+        <dd>
+            <span>{{session.startDateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.endDateTime">End Date Time</span></dt>
+        <dd>
+            <span>{{session.endDateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.servingMinutes">Serving Minutes</span></dt>
+        <dd>
+            <span>{{session.servingMinutes}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.windowName">Window Name</span></dt>
+        <dd>
+            <span>{{session.windowName}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'queueNApp.SessionStatus.' + session.status}}">{{session.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.agent">Agent</span></dt>
+        <dd>
+            <div *ngIf="session.agent">
+                <a [routerLink]="['/agent', session.agent?.id]">{{session.agent?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="queueNApp.session.customer">Customer</span></dt>
+        <dd>
+            <div *ngIf="session.customer">
+                <a [routerLink]="['/customer', session.customer?.id]">{{session.customer?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'session/'+ session.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

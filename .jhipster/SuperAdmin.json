@@ -1,0 +1,10 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [],
+    "changelogDate": "20210628171732",
+    "entityTableName": "super_admin",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

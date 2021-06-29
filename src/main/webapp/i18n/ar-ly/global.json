@@ -7,6 +7,17 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "الكيانات",
+                "superAdmin": "Super Admin",
+                "admin": "Admin",
+                "agent": "Agent",
+                "customer": "Customer",
+                "company": "Company",
+                "branch": "Branch",
+                "branchService": "Branch Service",
+                "queue": "Queue",
+                "window": "Window",
+                "session": "Session",
+                "auditLog": "Audit Log",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
